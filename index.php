@@ -464,7 +464,7 @@
                     <div class="bg-white p-1   rounded-mine d-flex justify-content-center align-items-center col">
 
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.0980974471017!2d-79.829565!3d43.6669296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b149df8482955%3A0x4f6c693e074d7f58!2sMississauga%20Rd%20%26%20Bovaird%20Dr%20W%2C%20Pembroke%2C%20ON%2C%20Canada!5e0!3m2!1sen!2snp!4v1726219079723!5m2!1sen!2snp"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2780.6503104058825!2d-77.0780162!3d45.8182613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cd1382c87e08107%3A0x92ff5ef064f17d86!2s1112%20Pembroke%20St%20E%2C%20Pembroke%2C%20ON%20K8A%207R4%2C%20Canada!5e0!3m2!1sen!2snp!4v1728321456251!5m2!1sen!2snp"
                             width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
 
