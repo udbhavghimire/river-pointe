@@ -200,6 +200,12 @@
                                         </div>
                                         <div class="col">
                                             <div href="#" class="afte">
+                                                <img loading="lazy" src="images/semi.jpg" alt="River Pointe"
+                                                    class="img-fluid imghei">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div href="#" class="afte">
                                                 <img loading="lazy" src="images/bedroom.jpg" alt="River Pointe"
                                                     class="img-fluid imghei">
                                             </div>
@@ -216,12 +222,7 @@
                                                     alt="River Pointe" class="img-fluid imghei">
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <div href="#" class="afte">
-                                                <img loading="lazy" src="images/semi.jpg" alt="River Pointe"
-                                                    class="img-fluid imghei">
-                                            </div>
-                                        </div>
+
 
                                     </div>
                                 </div>
@@ -683,7 +684,7 @@
                             </p>
 
                             <p class="mybot ">
-                                House Type : Towns and Single-family Homes
+                                House Type : Detached & Semi-Detached Bungalows
                             </p>
 
                         </div>
