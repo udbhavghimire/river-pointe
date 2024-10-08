@@ -136,7 +136,7 @@
                                     </h3> -->
                                     <p class="headline-textt headline-textt-sm ">
 
-                                        <a href="https://condomonk.ca/pembroke/river-pointe-pembroke"
+                                        <a href="https://condomonk.ca/ottawa/river-pointe"
                                             class="text-decoration-none boldd  ">River Pointe by Riverview Homes</a>
                                         is a picturesque master-planned residential community nestled along the tranquil
                                         shores of the Ottawa River, near Pembroke. It offers an upscale lifestyle
@@ -664,9 +664,9 @@
                         appearance. Please consult with the builder for the most up-to-date information on the homes and
                         specifications </span>
                     <div class="list pt-2 d-md-block d-none">
-                        <p class=""> <a href="https://condomonk.ca/pembroke" target="_blank"
+                        <p class=""> <a href="https://condomonk.ca/ottawa" target="_blank"
                                 class="text-dark text-decoration-none"><strong>
-                                    Check out all Pembroke pre construction homes projects on
+                                    Check out all Ottawa pre construction homes projects on
                                     Condomonk.</strong></a>
                         </p>
 
@@ -702,9 +702,9 @@
             </div>
 
             <div class="list mt-5 pt-5 d-md-none d-block center-sm">
-                <p class=""> <a href="https://condomonk.ca/pembroke" target="_blank"
+                <p class=""> <a href="https://condomonk.ca/ottawa" target="_blank"
                         class="text-dark text-decoration-none"><strong>
-                            Check out all Pembroke pre construction homes projects on
+                            Check out all Ottawa pre construction homes projects on
                             Condomonk.</strong></a>
                 </p>
 
