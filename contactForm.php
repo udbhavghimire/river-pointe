@@ -9,73 +9,111 @@ require './PHPMailer/src/Exception.php';
 require './PHPMailer/src/PHPMailer.php';
 require './PHPMailer/src/SMTP.php';
 
+// Function to send request to Follow Up Boss API
+function sendToFollowUpBoss($data)
+{
+    $url = 'https://api.followupboss.com/v1/events';
+
+    // Prepare the Follow Up Boss payload
+    $payload = array(
+        'person' => array(
+            'contacted' => false,
+            'firstName' => explode(' ', $data['name'])[0],
+            'lastName' => implode(' ', array_slice(explode(' ', $data['name']), 1)),
+            'emails' => array(
+                array('value' => $data['email'])
+            ),
+            'phones' => array(
+                array('value' => $data['phone'])
+            ),
+            'tags' => array('River Pointe')
+        ),
+        'source' => 'theriverpointe.ca',
+        'system' => 'Custom Website',
+        'type' => 'Inquiry',
+        'message' => $data['message']
+    );
+
+    // Initialize cURL
+    $ch = curl_init($url);
+
+    // Set cURL options
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+        'Authorization: Basic ZmthXzAwTlVCbDF2bGZzRXhyZlZXMmNCYVlqMXJXZzJ6NUNoN2c6'
+    ));
+
+    // Execute cURL request
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    // Close cURL connection
+    curl_close($ch);
+
+    return $httpCode >= 200 && $httpCode < 300;
+}
+
+// Initialize PHPMailer
 $mail = new PHPMailer;
 
-$mail->isSMTP(); // Set mailer to use SMTP
-$mail->Host = 'mail.theriverpointe.ca'; // Specify main and backup SMTP servers
-$mail->SMTPAuth = true; // Enable SMTP authentication
-$mail->Username = 'info@theriverpointe.ca'; // SMTP username
-$mail->Password = 'mail@theriverpointe'; // SMTP password
-$mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
-$mail->Port = 587; // TCP port to connect to
+$mail->isSMTP();
+$mail->Host = 'mail.theriverpointe.ca';
+$mail->SMTPAuth = true;
+$mail->Username = 'info@theriverpointe.ca';
+$mail->Password = 'mail@theriverpointe';
+$mail->SMTPSecure = 'tls';
+$mail->Port = 587;
 
 $mail->setFrom('info@theriverpointe.ca', $_POST['name']);
 $mail->addAddress('contact@homebaba.ca');
-
-
-
-
 $mail->addReplyTo($_POST['email']);
 $mail->isHTML(true);
 
-$mail->Subject = "River Pointe- Landing Page Inquiry";
-$message = '
+$mail->Subject = "River Pointe - Landing Page Inquiry";
 
-';
-$message .= '';
-$message .= "
-            Name:
-            " . strip_tags($_POST['name']) . "
-        <br/>";
-$message .= "
-            Phone:
-            " . strip_tags($_POST['phone']) . "
-       <br/> ";
-$message .= "
-            Email:
-            " . strip_tags($_POST['email']) . "
-       <br/> ";
-$message .= "
-        Realtor or working with one?:
-        " . strip_tags($_POST['realtor']) . "
-    <br/>";
-$message .= "
-            Message : 
-            " . strip_tags($_POST['message']) . "
-       <br/> ";
-$message .= "
-            Source : 
-            theriverpointe.ca
-        ";
-$message .= "";
-$message .= "
-
+// Prepare email message
+$message = "
+    Name: " . strip_tags($_POST['name']) . "<br/>
+    Phone: " . strip_tags($_POST['phone']) . "<br/>
+    Email: " . strip_tags($_POST['email']) . "<br/>
+    Realtor or working with one?: " . strip_tags($_POST['realtor']) . "<br/>
+    Message: " . strip_tags($_POST['message']) . "<br/>
+    Source: theriverpointe.ca
 ";
 
 $mail->Body = $message;
 $mail->AltBody = $_POST['message'] . $_POST['email'] . $_POST['name'] . $_POST['phone'];
 
-if (!$mail->send()) {
-    $_SESSION["error"] = "Application not submitted!";
+// Attempt to send email and Follow Up Boss notification
+try {
+    $emailSent = $mail->send();
 
+    // Prepare data for Follow Up Boss
+    $fubData = array(
+        'name' => $_POST['name'],
+        'email' => $_POST['email'],
+        'phone' => $_POST['phone'],
+        'message' => $_POST['message']
+    );
+
+    $fubSent = sendToFollowUpBoss($fubData);
+
+    if ($emailSent && $fubSent) {
+        $_SESSION["success"] = "Application submitted successfully.";
+        header("Location: ./thankyou/");
+        exit();
+    } else {
+        $_SESSION["error"] = "Application partially submitted. Please try again.";
+        header("Location: index.php");
+        exit();
+    }
+
+} catch (Exception $e) {
+    $_SESSION["error"] = "Application not submitted: " . $mail->ErrorInfo;
     header("Location: index.php");
     exit();
-
-} else {
-    $_SESSION["success"] = "Application submitted.";
-    header("Location: ./thankyou/");
-    exit();
-
 }
-
 ?>
